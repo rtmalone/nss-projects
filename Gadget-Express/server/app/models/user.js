@@ -1,13 +1,17 @@
 /* jshint unused:false */
 
+'use strict';
 
-var User = function(){
-  'use strict';
-
-  var purchases = [];
-
-  module.exports = function User(user){
-    this.name = user.name || '';
-    this.balance = user.balance || '';
-  };
+module.exports = function User(user, purchases){
+  this.name = user.name || '';
+  this.balance = parseInt(user.balance || 0);
+  this.purchases = purchases;
 };
+
+/*
+  User.prototype.addPurchase = function(purchase){
+    purchases.push(purchase);
+  };
+
+  return User;
+*/

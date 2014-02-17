@@ -88,7 +88,7 @@
 
     $tdbuy.append($buybtn.addClass('tiny radius buybtn'));
     $tdgadget.text(gadget.name).attr('data-name', gadget.name);
-    $tdprice.text(gadget.price).attr('data-price', gadget.price);
+    $tdprice.text('$'+gadget.price).attr('data-price', gadget.price);
     $tdstock.text(gadget.stock).attr('data-qty', gadget.stock);
     $tduser.append($userdrpdwn.addClass('userlist').css('visibility', 'hidden'));
     $tdqty.append($qtydrpdwn.addClass(gadget._id+' qtylist').css('visibility', 'hidden'));
@@ -120,7 +120,7 @@
     var $tdpurchases = $('<td>');
 
     $tduser.text(user.name).attr('data-name', user.name);
-    $tdbalance.text(user.balance).attr('data-balance', user.balance);
+    $tdbalance.text('$'+user.balance).attr('data-balance', user.balance);
     //$tdpurchases.text(data.movies[i].runtime).attr('data-rating', data.movies[i].runtime);
 
     $tr.append($tduser, $tdbalance, $tdpurchases);
@@ -145,7 +145,7 @@
       $('.'+gadget._id).append($option);
     }
   }
-  
+
 //---- Order functions
 
   function processOrder(event){
@@ -155,20 +155,17 @@
 
     var gadgetObj = findGadget(itemId);
     var userObj = findUser(userName);
-    debugger;
 
     if( userObj.balance >= gadgetObj.price*qty){
       updateGadget(gadgetObj, qty);
       updateUser(userObj, gadgetObj, qty);
     } else {
-      alert('User does not have enough funds');
+      alert(userObj.name+' does not have enough funds.');
     }
 
     console.log(gadgetObj);
     console.log(userObj);
 
-    //var gadget = $(this).parent().siblings('td:nth-child(2)').text();
-    //var price = $(this).parent().siblings('td:nth-child(3)').text();
     event.preventDefault();
   }
 
@@ -187,7 +184,6 @@
   }
 
   function updateGadget(gadgetObj, qty){
-    //var orderPrice = $(this).parent().siblings('td:nth-child(3)').text() * qty;
     var id = gadgetObj._id;
     var newStock = gadgetObj.stock - qty;
     var obj = {name:gadgetObj.name, price:gadgetObj.price, stock:newStock};
@@ -201,10 +197,10 @@
   }
 
   function updateUser(userObj, gadgetObj, qty){
-    //var orderPrice = $(this).parent().siblings('td:nth-child(3)').text() * qty;
     var id = userObj._id;
     var newBalance = userObj.balance - (gadgetObj.price*qty);
     var obj = {name:userObj.name, balance:newBalance, purchases:gadgetObj.name};
+    debugger;
 
     var url = window.location.origin.replace(/[0-9]{4}/, '4000') + '/users/'+id;
     var type = 'PUT';

@@ -1,10 +1,32 @@
+@import url(http://fonts.googleapis.com/css?family=Russo+One);
 body {
   background-color: #bbbbbb;
 }
+.panel {
+  box-shadow: 0px 6px 7px #5f9ea0;
+}
+h1 {
+  font-family: 'Russo One', sans-serif;
+}
+input:focus {
+  background-color: yellow;
+}
+button {
+  border: outset;
+}
 form {
-  width: 1000px;
+  width: 200px;
   margin: auto;
+  box-shadow: 0px 6px 7px #5f9ea0;
+  background-color: whitesmoke;
 }
 table {
   width: 100%;
+  box-shadow: 0px 6px 7px #5f9ea0;
+}
+table button {
+  margin: auto;
+}
+table select {
+  margin: auto;
 }

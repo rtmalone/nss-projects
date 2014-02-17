@@ -1,14 +1,43 @@
+@import url(http://fonts.googleapis.com/css?family=Russo+One);
 @bg-color: #bbb;
+@shadow: 0px 6px 7px cadetblue;
 
 body{
   background-color: @bg-color;
 }
 
+.panel {
+  box-shadow: @shadow;
+}
+
+h1 {
+  font-family: 'Russo One', sans-serif;
+}
+
+input:focus {
+  background-color: yellow;
+}
+
+button {
+  border: outset;
+}
+
 form {
-  width: 1000px;
+  width: 200px;
   margin: auto;
+  box-shadow: @shadow;
+  background-color: whitesmoke;
 }
 
 table {
   width: 100%;
+  box-shadow: @shadow;
+}
+
+table button{
+  margin: auto;
+}
+
+table select{
+  margin: auto;
 }
