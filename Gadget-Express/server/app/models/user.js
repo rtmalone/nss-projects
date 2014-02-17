@@ -1,7 +1,13 @@
-'use strict';
+/* jshint unused:false */
 
-module.exports = function User(user){
-  this.name = user.name || '';
-  this.balance = user.balance || '';
-  this.purchases = [];
+
+var User = function(){
+  'use strict';
+
+  var purchases = [];
+
+  module.exports = function User(user){
+    this.name = user.name || '';
+    this.balance = user.balance || '';
+  };
 };

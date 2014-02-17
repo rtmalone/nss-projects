@@ -4,12 +4,17 @@
 
   $(document).ready(initialize);
 
+  var userArray = [];
+  var gadgetArray = [];
+
   function initialize(){
     $(document).foundation();
     getGadgets();
     getUsers();
     $('#createUser').click(createUser);
     $('#createGadget').click(createGadget);
+    $('#gadgetForm').on('click', '.buybtn', showHidden);
+    $('#gadgetForm').on('click', '.orderbtn', processOrder);
   }
 
 //---- Create Functions
@@ -48,6 +53,12 @@
 
 //---- Display Functions
 
+  function showHidden(event){
+    $(this).parent().siblings('td').children().css('visibility', 'visible');
+
+    event.preventDefault();
+  }
+
   function getGadgets(){
     var url = window.location.origin.replace(/[0-9]{4}/, '4000') + '/gadgets';
     $.getJSON(url, displayGadgets);
@@ -60,6 +71,8 @@
   }
 
   function displayGadget(gadget){
+    gadgetArray.push(gadget);
+
     var $tr = $('<tr>');
     var $tdbuy = $('<td>');
     var $buybtn = $('<button>Buy</button>');
@@ -73,13 +86,13 @@
     var $tdsubmit = $('<td>');
     var $orderbtn = $('<button>Order</button>');
 
-    $tdbuy.append($buybtn.addClass('tiny radius'));
+    $tdbuy.append($buybtn.addClass('tiny radius buybtn'));
     $tdgadget.text(gadget.name).attr('data-name', gadget.name);
     $tdprice.text(gadget.price).attr('data-price', gadget.price);
     $tdstock.text(gadget.stock).attr('data-qty', gadget.stock);
     $tduser.append($userdrpdwn.addClass('userlist').css('visibility', 'hidden'));
-    $tdqty.append($qtydrpdwn.addClass(gadget._id).css('visibility', 'hidden'));
-    $tdsubmit.append($orderbtn.addClass('tiny radius alert').css('visibility', 'hidden'));
+    $tdqty.append($qtydrpdwn.addClass(gadget._id+' qtylist').css('visibility', 'hidden'));
+    $tdsubmit.append($orderbtn.attr('data-itemid', gadget._id).addClass('tiny radius alert orderbtn').css('visibility', 'hidden'));
     //$tdpurchases.text(data.movies[i].runtime).attr('data-rating', data.movies[i].runtime);
 
     $tr.append($tdbuy, $tdgadget, $tdprice, $tdstock, $tduser, $tdqty, $tdsubmit);
@@ -99,6 +112,8 @@
   }
 
   function displayUser(user){
+    userArray.push(user);
+
     var $tr = $('<tr>');
     var $tduser = $('<td>');
     var $tdbalance = $('<td>');
@@ -129,6 +144,84 @@
       $option.text(qtyArray[i]);
       $('.'+gadget._id).append($option);
     }
+  }
+  
+//---- Order functions
+
+  function processOrder(event){
+    var itemId = $(this).data('itemid');
+    var userName = $(this).parent().siblings().children('.userlist').val();
+    var qty = $(this).parent().siblings().children('.qtylist').val();
+
+    var gadgetObj = findGadget(itemId);
+    var userObj = findUser(userName);
+    debugger;
+
+    if( userObj.balance >= gadgetObj.price*qty){
+      updateGadget(gadgetObj, qty);
+      updateUser(userObj, gadgetObj, qty);
+    } else {
+      alert('User does not have enough funds');
+    }
+
+    console.log(gadgetObj);
+    console.log(userObj);
+
+    //var gadget = $(this).parent().siblings('td:nth-child(2)').text();
+    //var price = $(this).parent().siblings('td:nth-child(3)').text();
+    event.preventDefault();
+  }
+
+  function findGadget(itemId){
+    var x = _.find(gadgetArray, function(gadget){
+      return gadget._id === itemId;
+    });
+    return x;
+  }
+
+  function findUser(userName){
+    var x = _.find(userArray, function(user){
+      return user.name === userName;
+    });
+    return x;
+  }
+
+  function updateGadget(gadgetObj, qty){
+    //var orderPrice = $(this).parent().siblings('td:nth-child(3)').text() * qty;
+    var id = gadgetObj._id;
+    var newStock = gadgetObj.stock - qty;
+    var obj = {name:gadgetObj.name, price:gadgetObj.price, stock:newStock};
+
+    var url = window.location.origin.replace(/[0-9]{4}/, '4000') + '/gadgets/'+id;
+    var type = 'PUT';
+    var data = obj;
+    var success = updateGadgetTable;
+
+    $.ajax({url:url, type:type, data:data, success:success});
+  }
+
+  function updateUser(userObj, gadgetObj, qty){
+    //var orderPrice = $(this).parent().siblings('td:nth-child(3)').text() * qty;
+    var id = userObj._id;
+    var newBalance = userObj.balance - (gadgetObj.price*qty);
+    var obj = {name:userObj.name, balance:newBalance, purchases:gadgetObj.name};
+
+    var url = window.location.origin.replace(/[0-9]{4}/, '4000') + '/users/'+id;
+    var type = 'PUT';
+    var data = obj;
+    var success = updateUserTable;
+
+    $.ajax({url:url, type:type, data:data, success:success});
+  }
+
+  function updateGadgetTable(){
+    $('#gadgetTable > tbody > tr').remove();
+    getGadgets();
+  }
+
+  function updateUserTable(){
+    $('#userTable > tbody > tr').remove();
+    getUsers();
   }
 
 })();

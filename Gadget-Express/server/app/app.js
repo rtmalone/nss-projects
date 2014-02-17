@@ -25,6 +25,8 @@ app.post('/users', d, users.create);
 app.get('/users', d, users.index);
 app.post('/gadgets', d, gadgets.create);
 app.get('/gadgets', d, gadgets.index);
+app.put('/gadgets/:id', d, gadgets.update);
+app.put('/users/:id', d, users.update);
 /* --- pipeline ends   */
 
 var server = require('http').createServer(app);
