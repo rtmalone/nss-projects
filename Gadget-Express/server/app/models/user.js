@@ -2,11 +2,13 @@
 
 'use strict';
 
-module.exports = function User(user, purchases){
+module.exports = User;
+
+function User(user, purchases){
   this.name = user.name || '';
   this.balance = parseInt(user.balance || 0);
-  this.purchases = purchases;
-};
+  this.purchases = user.purchases || [];
+}
 
 /*
   User.prototype.addPurchase = function(purchase){

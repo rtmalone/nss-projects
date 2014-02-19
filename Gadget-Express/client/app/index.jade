@@ -14,10 +14,10 @@ html(class='no-js', lang='en')
       .small-12.columns
         h1 Gadget Express
 
-    .row
-      .small-3.columns
-        form#userForm
-          fieldset
+    form#userForm
+      fieldset
+        .row
+          .small-3.columns
             .row
               .small-12.columns
                 label User Name
@@ -29,20 +29,20 @@ html(class='no-js', lang='en')
             .row
               .small-12.columns
                 button#createUser(name="createuser").tiny.radius Create User
-      .small-9.columns
-        label &nbsp;
-          table#userTable
-            thead
-              tr
-                th User
-                th Balance
-                th Purchases
-            tbody
+          .small-9.columns
+            label &nbsp;
+              table#userTable
+                thead
+                  tr
+                    th User
+                    th Balance
+                    th Purchases
+                tbody
 
-    .row
-      .small-3.columns
-        form#gadgetForm
-          fieldset
+    form#gadgetForm
+      fieldset
+        .row
+          .small-3.columns
             .row
               .small-12.columns
                 label Gadget Name
@@ -58,19 +58,19 @@ html(class='no-js', lang='en')
             .row
               .small-12.columns
                 button#createGadget(name="creategadget").tiny.radius Create Gadget
-      .small-9.columns
-        label &nbsp;
-          table#gadgetTable
-            thead
-              tr
-                th Buy
-                th Gadget
-                th Price
-                th Stock
-                th User
-                th Qty
-                th Submit
-            tbody
+          .small-9.columns
+            label &nbsp;
+              table#gadgetTable
+                thead
+                  tr
+                    th Buy
+                    th Gadget
+                    th Price
+                    th Stock
+                    th User
+                    th Qty
+                    th Submit
+                tbody
 
     script(src='/js/vendor/jquery.js')
     script(src='/js/vendor/foundation.js')

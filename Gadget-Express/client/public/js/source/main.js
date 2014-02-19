@@ -93,7 +93,6 @@
     $tduser.append($userdrpdwn.addClass('userlist').css('visibility', 'hidden'));
     $tdqty.append($qtydrpdwn.addClass(gadget._id+' qtylist').css('visibility', 'hidden'));
     $tdsubmit.append($orderbtn.attr('data-itemid', gadget._id).addClass('tiny radius alert orderbtn').css('visibility', 'hidden'));
-    //$tdpurchases.text(data.movies[i].runtime).attr('data-rating', data.movies[i].runtime);
 
     $tr.append($tdbuy, $tdgadget, $tdprice, $tdstock, $tduser, $tdqty, $tdsubmit);
     $('#gadgetTable > tbody').prepend($tr);
@@ -112,6 +111,7 @@
   }
 
   function displayUser(user){
+    console.log(user);
     userArray.push(user);
 
     var $tr = $('<tr>');
@@ -121,7 +121,8 @@
 
     $tduser.text(user.name).attr('data-name', user.name);
     $tdbalance.text('$'+user.balance).attr('data-balance', user.balance);
-    //$tdpurchases.text(data.movies[i].runtime).attr('data-rating', data.movies[i].runtime);
+    $tdpurchases.text(user.purchases);
+    //$tdpurchases.text('test');
 
     $tr.append($tduser, $tdbalance, $tdpurchases);
     $('#userTable > tbody').prepend($tr);
@@ -199,7 +200,15 @@
   function updateUser(userObj, gadgetObj, qty){
     var id = userObj._id;
     var newBalance = userObj.balance - (gadgetObj.price*qty);
+    var pur = $('[data-name=Hans]').next().next().text();
+    console.log(pur);
     var obj = {name:userObj.name, balance:newBalance, purchases:gadgetObj.name};
+
+    var usrPurchases = [];
+    usrPurchases.push(pur);
+    for(var i=0; i<qty; i++){
+      usrPurchases.push(gadgetObj.name);
+    }
     debugger;
 
     var url = window.location.origin.replace(/[0-9]{4}/, '4000') + '/users/'+id;

@@ -1,6 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Russo+One);
 body {
-  background-color: #bbbbbb;
+  background-image: url('../media/green_cup.png');
 }
 .panel {
   box-shadow: 0px 6px 7px #5f9ea0;
@@ -15,10 +15,10 @@ button {
   border: outset;
 }
 form {
-  width: 200px;
+  width: 1000px;
   margin: auto;
   box-shadow: 0px 6px 7px #5f9ea0;
-  background-color: whitesmoke;
+  background-color: #cfcfcf;
 }
 table {
   width: 100%;
