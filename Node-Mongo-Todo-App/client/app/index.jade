@@ -1,0 +1,77 @@
+doctype html
+//[if IE 9]><html class="lt-ie10" lang="en" > <![endif]
+html(class='no-js', lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title Nodo-Mongo Task App
+    link(rel='stylesheet', href='/css/normalize.css')
+    link(rel='stylesheet', href='/css/foundation.css')
+    link(rel='stylesheet', href='/css/app.css')
+    script(src='/js/vendor/modernizr.js')
+  body
+    .row
+      .small-12.columns
+        h1 Todo List
+    .row
+      .small-12.columns
+        button.tiny.radius#addtaskbtn Add Task
+    .row
+      .small-12.columns
+        form#task
+          fieldset
+            .row
+              .small-3.columns
+                label Title
+                input(type='text', name='title', autofocus=true)
+              .small-3.columns
+                label Due Date
+                input(type='date', name='dueDate')
+              .small-3.columns
+                label Priority
+                select(name='priorityId')
+                  option(disabled, selected) Select One
+              .small-3.columns
+                label Tags
+                input(type='text', name='tags')
+            .row
+              .small-2.columns
+                label &nbsp;
+                button.expand.tiny.radius Create
+              .small-4.columns
+                label &nbsp;
+                a.left(href='/priorities.html') Update/Create Priorities
+              .small-6.columns
+    .row
+      .small-2.columns
+        input#limit(type='text', placeholder='Per page...')
+      .small-5.columns
+        p
+      .small-2.columns
+        p
+      .small-2.columns
+        ul.button-group.radius.round
+          li
+            button#prev.tiny.page &#60;
+          li
+            button#next.tiny.page &#62;
+      .small-1.columns
+        p#page.left 1
+    .row
+      .small-12.columns
+        table#tasks
+          thead
+            tr
+              th: a.sort.isComplete(href='#') Complete
+              th Task
+              th: a.sort.dueDate(href='#') Due By
+              th Priority
+              th Tags
+          tbody
+
+    script(src='/js/vendor/jquery.js')
+    script(src='/js/vendor/foundation.js')
+    script(src='/js/vendor/moment.js')
+    script(src='/js/vendor/lodash.js')
+    script(src='/js/source/main.js')
+
