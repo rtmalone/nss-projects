@@ -1,0 +1,53 @@
+doctype html
+//[if IE 9]><html class="lt-ie10" lang="en" > <![endif]
+html(class='no-js', lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title= title
+    link(rel='stylesheet', href='/css/normalize.css')
+    link(rel='stylesheet', href='/css/foundation.css')
+    link(rel='stylesheet', href='/less/app.css')
+    script(src='/js/vendor/modernizr.js')
+  body
+<<<<<<< HEAD
+    #container
+      .row
+        .small-12.columns
+          .header
+            h1= title 
+              input.searchField.right(type= 'text', placeholder='search')
+      .row
+        .small-4.columns
+          #sideBar
+            button#addArtist.btn.tiny.round.centered Add artist
+        .small-8.colums
+          #mainArea
+            form
+              fieldset
+                label Artist
+                  input(placeholder='Name')
+
+          #ablumCover Artist
+            audio(src='http://users.skynet.be/fa046054/home/P22/track14.mp3', controls)
+=======
+    .row
+      .small-12.columns
+        #container
+          #header
+             h3= title
+               input.searchField(type= 'text', value='song search')
+            #sideBar
+              button#addSong.btn.tiny.round.centered Add artist
+            #mainArea
+              #ablumCover Artist
+                  form#songData.hide
+
+>>>>>>> 2de43ff9393e2968f9272bf0ba4b78a78d82ff74
+          
+    script(src='/js/vendor/jquery.js')
+    script(src='/js/vendor/foundation.js')
+    script(src='/js/vendor/lodash.js')
+    script(src='/js/vendor/moment.js')
+    script(src='/js/source/main.js')
+

@@ -10,10 +10,10 @@ exports.index = function(req, res){
 };
 
 exports.match = function(req, res){
-  console.log('query >'+req.query);
+  console.log(req.query);
 
-  var country = req.query.country.toString();
-  var flag = req.query.flag.toString();
+  var country = req.query.country;
+  var flag = req.query.flag;
   console.log('country >'+country);
   console.log('flag >'+flag);
 
@@ -25,4 +25,6 @@ exports.match = function(req, res){
   } else {
     res.send({country:false, flag:false});
   }
+ 
 };
+
